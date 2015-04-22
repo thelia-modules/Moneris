@@ -12,11 +12,11 @@
  *
  */
 
-namespace Moneris\Resource\Moneris;
-use Moneris\Resource\Moneris;
+namespace Moneris\Resource\MonerisApiClasses;
 
+use Moneris\Resource\MonerisApi;
 
-class Moneris_Processor
+class MonerisProcessor
 {
 	/**
 	 * API config variables pulled from the terrible Moneris API.
@@ -63,7 +63,7 @@ class Moneris_Processor
 	 */
 	static public function config($environment)
 	{
-		if ($environment != Moneris::ENV_LIVE) {
+		if ($environment != MonerisApi::ENV_LIVE) {
 			self::$_config['host'] = 'esqa.moneris.com';
 		} else {
 			self::$_config['host'] = 'www3.moneris.com';
@@ -74,15 +74,15 @@ class Moneris_Processor
 	/**
 	 * Do the necessary magic to process this transaction via the Moneris API.
 	 *
-	 * @param Moneris_Transaction $transaction
-	 * @return Moneris_Result
+	 * @param MonerisTransaction $transaction
+	 * @return MonerisResult
 	 */
-	static public function process(Moneris_Transaction $transaction)
+	static public function process(MonerisTransaction $transaction)
 	{
 		if (! $transaction->is_valid()) {
-			$result = new Moneris_Result($transaction);
+			$result = new MonerisResult($transaction);
 			$result->was_successful(false);
-			$result->error_code(Moneris_Result::ERROR_INVALID_POST_DATA);
+			$result->error_code(MonerisResult::ERROR_INVALID_POST_DATA);
 			return $result;
 		}
 
@@ -93,10 +93,10 @@ class Moneris_Processor
 	/**
 	 * Do the curl call to process the API request.
 	 *
-	 * @param Moneris_Transaction $transaction
+	 * @param MonerisTransaction $transaction
 	 * @return SimpleXMLElement
 	 */
-	static protected function _call_api(Moneris_Transaction $transaction)
+	static protected function _call_api(MonerisTransaction $transaction)
 	{
 		$gateway = $transaction->gateway();
 		$config = self::config($gateway->environment());

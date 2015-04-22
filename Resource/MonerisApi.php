@@ -14,26 +14,17 @@
 
 namespace Moneris\Resource;
 
-use Moneris\Resource\Moneris\Moneris_Exception;
-use Moneris\Resource\Moneris\Moneris_Gateway;
-
-define('MONERIS_LIB', dirname(__FILE__) . '/Moneris');
-
-require_once MONERIS_LIB . '/Exception.php';
-require_once MONERIS_LIB . '/Gateway.php';
-require_once MONERIS_LIB . '/Processor.php';
-require_once MONERIS_LIB . '/Result.php';
-require_once MONERIS_LIB . '/3DSecureResult.php';
-require_once MONERIS_LIB . '/Transaction.php';
+use Moneris\Resource\MonerisApiClasses\MonerisException;
+use Moneris\Resource\MonerisApiClasses\MonerisGateway;
 
 if (! function_exists('curl_init')) {
-  throw new Moneris_Exception('The Moneris API requires the CURL extension.');
+  throw new MonerisException('The Moneris API requires the CURL extension.');
 }
 
 /**
- * A really simple way to get a Moneris_Gateway object.
+ * A really simple way to get a MonerisGateway object.
  */
-class Moneris
+class MonerisApi
 {
 	const ENV_LIVE = 'live'; // use the live API server
 	const ENV_STAGING = 'staging'; // use the API sandbox
@@ -51,17 +42,17 @@ class Moneris
 	 * 			- require_cvd bool
 	 * 			- require_avs bool
 	 * 			- avs_codes array
-	 * @return Moneris_Gateway
-     * @throws Moneris_Exception
+	 * @return MonerisGateway
+     * @throws MonerisException
 	 */
 	static public function create(array $params)
 	{
-		if (! isset($params['api_key'])) throw new Moneris_Exception("'api_key' is required.");
-		if (! isset($params['store_id'])) throw new Moneris_Exception("'store_id' is required.");
+		if (! isset($params['api_key'])) throw new MonerisException("'api_key' is required.");
+		if (! isset($params['store_id'])) throw new MonerisException("'store_id' is required.");
 
 		$params['environment'] = isset($params['environment']) ? $params['environment'] : self::ENV_LIVE;
 
-		$gateway = new Moneris_Gateway($params['api_key'], $params['store_id'], $params['environment']);
+		$gateway = new MonerisGateway($params['api_key'], $params['store_id'], $params['environment']);
 
 		if (isset($params['require_cvd']))
 			$gateway->require_cvd((bool) $params['require_cvd']);

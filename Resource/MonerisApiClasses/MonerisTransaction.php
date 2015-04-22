@@ -12,15 +12,14 @@
  *
  */
 
-namespace Moneris\Resource\Moneris;
+namespace Moneris\Resource\MonerisApiClasses;
 
 use SimpleXMLElement;
-
 
 /**
  * Mostly takes care of validation.
  */
-class Moneris_Transaction
+class MonerisTransaction
 {
 
 	/**
@@ -29,7 +28,7 @@ class Moneris_Transaction
 	protected $_errors = array();
 
 	/**
-	 * @var Moneris
+	 * @var MonerisApi
 	 */
 	protected $_gateway;
 
@@ -45,16 +44,16 @@ class Moneris_Transaction
 
 	/**
 	 * The result object for this transaction.
-	 * @var Moneris_Result
+	 * @var MonerisResult
 	 */
 	protected $_result = null;
 
     /**
-     * @param Moneris_Gateway $gateway
+     * @param MonerisGateway $gateway
      * @param array $params
      * @param bool $prepare_params
      */
-	public function __construct(Moneris_Gateway $gateway, array $params = array(), $prepare_params = true)
+	public function __construct(MonerisGateway $gateway, array $params = array(), $prepare_params = true)
 	{
 		$this->gateway($gateway);
 		$this->_params = $prepare_params ? $this->prepare($params) : $params;
@@ -178,7 +177,7 @@ class Moneris_Transaction
 	 * Get or set errors.
 	 *
 	 * @param array $errors
-	 * @return array|Moneris_Result Fluid interface for set operations.
+	 * @return array|MonerisResult Fluid interface for set operations.
 	 */
 	public function errors(array $errors = null)
 	{
@@ -192,10 +191,10 @@ class Moneris_Transaction
 	/**
 	 * Get or set the gateway object.
 	 *
-	 * @param Moneris_Gateway $gateway Optional.
-	 * @return Moneris_Gateway|Moneris_Transaction Fluid interface for set operations
+	 * @param MonerisGateway $gateway Optional.
+	 * @return MonerisGateway|MonerisTransaction Fluid interface for set operations
 	 */
-	public function gateway(Moneris_Gateway $gateway = null)
+	public function gateway(MonerisGateway $gateway = null)
 	{
 		if (! is_null($gateway)) {
 			$this->_gateway = $gateway;
@@ -234,7 +233,7 @@ class Moneris_Transaction
 	 *
 	 * @param array $params
      * @param bool $prepare_params
-	 * @return array|Moneris_Transaction Fluid interface on set operations.
+	 * @return array|MonerisTransaction Fluid interface on set operations.
 	 */
 	public function params(array $params = null, $prepare_params = true)
 	{
@@ -286,7 +285,7 @@ class Moneris_Transaction
 	 * Get or set the response.
 	 *
 	 * @param SimpleXMLElement $response
-	 * @return SimpleXMLElement|Moneris_Transaction Fluid interface for set operations
+	 * @return SimpleXMLElement|MonerisTransaction Fluid interface for set operations
 	 */
 	public function response(SimpleXMLElement $response = null)
 	{
@@ -349,12 +348,12 @@ class Moneris_Transaction
 	 * Was this transaction a huge success?
 	 *
 	 * @param SimpleXMLElement $response
-	 * @return Moneris_Result
+	 * @return MonerisResult
 	 */
 	public function validate_response(SimpleXMLElement $response)
 	{
 		$this->response($response);
-		$result = Moneris_Result::factory($this);
+		$result = MonerisResult::factory($this);
 		$result->validate_response();
 		return $result;
 	}

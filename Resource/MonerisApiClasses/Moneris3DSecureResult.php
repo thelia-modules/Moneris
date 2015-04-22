@@ -1,11 +1,11 @@
 <?php
 
-namespace Moneris\Resource\Moneris;
+namespace Moneris\Resource\MonerisApiClasses;
 
 /**
  * Holy shit, this is a kludge. Need to refactor to support different result types...
  */
-class Moneris_3DSecureResult extends Moneris_Result
+class Moneris3DSecureResult extends MonerisResult
 {
 	protected $_is_enrolled = false;
 
@@ -79,7 +79,7 @@ class Moneris_3DSecureResult extends Moneris_Result
 	/**
 	 * Validate the response from Moneris to see if it was successful.
 	 *
-	 * @return Moneris_Result
+	 * @return MonerisResult
 	 */
 	public function validate_response()
 	{
@@ -88,7 +88,7 @@ class Moneris_3DSecureResult extends Moneris_Result
 
 		// did the transaction go through?
 		if ('Error' == $response->type) {
-			$this->error_code(Moneris_Result::ERROR)
+			$this->error_code(MonerisResult::ERROR)
 				->was_successful(false);
 			return $this;
 		}

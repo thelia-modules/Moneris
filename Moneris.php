@@ -7,20 +7,20 @@
 namespace Moneris;
 
 use Thelia\Model\Order;
-use Thelia\Module\BaseModule;
+use Thelia\Module\AbstractPaymentModule;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Install\Database;
-use Thelia\Module\PaymentModuleInterface;
 
 /**
  * Class Moneris
  * @package Moneris
  * @author Etienne PERRIERE <eperriere@openstudio.fr> - OpenStudio
  */
-class Moneris extends BaseModule implements PaymentModuleInterface
+class Moneris extends AbstractPaymentModule
 {
     const DOMAIN = "moneris";
     const ROUTER = "router.moneris";
+    const MONERIS_ORDER_ID = "moneris.order.id";
 
     public function postActivation(ConnectionInterface $con = null)
     {
@@ -51,7 +51,10 @@ class Moneris extends BaseModule implements PaymentModuleInterface
      */
     public function pay(Order $order)
     {
-        // TODO: Implement pay() method.
+        if ($this->isValidPayment()) {
+            $this->getRequest()->getSession()->set(self::MONERIS_ORDER_ID, $order->getId());
+            return $this->generateGatewayFormResponse($order, '', []);
+        }
     }
 
     /**
@@ -65,8 +68,27 @@ class Moneris extends BaseModule implements PaymentModuleInterface
      */
     public function isValidPayment()
     {
-        // Temporaire
-        return true;
+        return ($this->isDevEnvironment() || $this->isSslEnabled());
+    }
+
+    /**
+     * Return true if the current environment is in Dev mode
+     *
+     * @return bool
+     */
+    protected function isDevEnvironment()
+    {
+        return 'dev' == $this->getContainer()->getParameter('kernel.environment');
+    }
+
+    /**
+     * return true if SSL is enabled
+     *
+     * @return bool
+     */
+    protected function isSslEnabled()
+    {
+        return $this->getRequest()->isSecure();
     }
 
     /**
