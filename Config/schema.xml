@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="thelia">
+
+
+    <external-schema filename="local/config/schema.xml" referenceOnly="true" />
+</database>

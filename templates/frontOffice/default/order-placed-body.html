@@ -1,0 +1,58 @@
+{form name="moneris.payment"}
+    <form method="post" action="{url path='/admin/module/Moneris/payment'}" {form_enctype form=$form} class="form-horizontal">
+        {form_hidden_fields form=$form}
+
+        {form_field form=$form field="pan"}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <div class="col-sm-3">
+                <input type="number" name="{$name}" value="{$value}" {$attr} class="form-control" />
+            </div>
+        </div>
+        {/form_field}
+
+        {assign var="thisYear" value=$smarty.now|date_format:"%y"}
+        {assign var="lastYear" value=$thisYear+50}
+
+        {form_field form=$form field="expiryYear"}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <div class="col-sm-1">
+                <select name="{$name}" class="form-control" {$attr}>
+                    {for $year=$thisYear to $lastYear}
+                        <option value="{'%02d'|sprintf:$year}">{'%02d'|sprintf:$year}</option>
+                    {/for}
+                </select>
+            </div>
+        </div>
+        {/form_field}
+
+        {form_field form=$form field="expiryMonth"}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <div class="col-sm-1">
+                <select name="{$name}" class="form-control" {$attr}>
+                    {for $month=01 to 12}
+                    <option value="{'%02d'|sprintf:$month}">{'%02d'|sprintf:$month}</option>
+                    {/for}
+                </select>
+            </div>
+        </div>
+        {/form_field}
+
+        {form_field form=$form field="cvdValue"}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <div class="col-sm-2">
+                <input type="number" name="{$name}" value="{$value}" {$attr} class="form-control" />
+            </div>
+        </div>
+        {/form_field}
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">OK</button>
+            </div>
+        </div>
+    </form>
+{/form}
