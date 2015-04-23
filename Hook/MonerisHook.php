@@ -17,4 +17,10 @@ class MonerisHook extends BaseHook {
             $this->render('card-form.html')
         );
     }
+
+    public function onOrderPlacedBody(HookRenderEvent $event){
+        $event->add(
+            $this->render('moneris-receipt.html')
+        );
+    }
 }

@@ -8,6 +8,7 @@
     <hooks>
         <hook id="moneris.hook" class="Moneris\Hook\MonerisHook" scope="request">
             <tag name="hook.event_listener" event="order-payment-gateway.body" type="front"/>
+            <tag name="hook.event_listener" event="order-placed.body" type="front"/>
         </hook>
     </hooks>
 </config>

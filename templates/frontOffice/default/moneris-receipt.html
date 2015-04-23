@@ -1,0 +1,46 @@
+<div id="payment-success" class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {intl l="You choose to pay by"} : <span class="payment-method">Moneris eSelectPlus</span>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <h3>{intl l="Thank you for the trust you place in us."}</h3>
+        <p>{intl l="A summary of your order has been sent to the following address"}  {customer attr="email"}</p>
+        <p>{intl l="Your order will be confirmed by us upon receipt of your payment."}</p>
+        <dl class="dl-horizontal">
+            {loop type="order" name="placed-order-info" id=$placed_order_id}
+                <dt>{intl l="Order number"} : </dt>
+                <dd>{$REF}</dd>
+
+                <dt>{intl l="Date"} : </dt>
+                <dd>{flash type="date"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Total"} : </dt>
+                <dd>{format_money number={$TOTAL_TAXED_AMOUNT} symbol={$orderCurrency}}</dd>
+
+                <dt>{intl l="Transaction type" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="type"}{intl l=$MESSAGE d="moneris.fo.default"}{/flash}</dd>
+
+                <dt>{intl l="Response / ISO Code" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="responseCode"}{$MESSAGE}{/flash}/{flash type="isoCode"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Authentication code" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="authCode"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Transaction message" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="message"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Transaction ref" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="ref"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Seller" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="merchant"}{$MESSAGE}{/flash}</dd>
+
+                <dt>{intl l="Seller website" d="moneris.fo.default"} : </dt>
+                <dd>{flash type="merchantUrl"}{$MESSAGE}{/flash}</dd>
+            {/loop}
+
+        </dl>
+    </div>
+</div>

@@ -6,6 +6,7 @@ use Moneris\Moneris;
 use Moneris\Form\MonerisPaymentForm;
 use Moneris\Resource\MonerisApi;
 use Thelia\Form\Exception\FormValidationException;
+use Thelia\Model\ConfigQuery;
 use Thelia\Module\BasePaymentModuleController;
 
 /**
@@ -57,14 +58,19 @@ class MonerisController extends BasePaymentModuleController {
             'cvd_codes' => array('M', 'Y', 'P', 'S', 'U')
         );
 
+        $orderRef = $session->get(Moneris::MONERIS_ORDER_ID, false);
+        //$amount = (string)$session->getSessionCart()->getTaxedAmount($this->container->get('thelia.taxEngine')->getDeliveryCountry());
+        $custId = $session->getCustomerUser()->getRef();
+
+
         // Set transaction parameters
         $params = array(
             'cc_number'     => $data['pan'],
             'order_id'      => 'OPENSTUDIO-'.date("dmy-G:i:s"),
-            'amount'        => '10.33', //(string)$session->getSessionCart()->getTaxedAmount($this->container->get('thelia.taxEngine')->getDeliveryCountry()),
+            'amount'        => '10.33',
             'expiry_month'  => $data['expiryMonth'],
             'expiry_year'   => $data['expiryYear'],
-            'cust_id'       => $session->getCustomerUser()->getRef(),
+            'cust_id'       => $custId,
             'cvd'           => $data['cvdValue']
         );
 
@@ -88,7 +94,26 @@ class MonerisController extends BasePaymentModuleController {
         }
         else
         {
-            //$transaction = $purchaseResult->transaction();   // More information about the transaction
+            $transaction = $purchaseResult->transaction();   // More information about the transaction
+
+            $flashBag = $session->getFlashBag();
+
+            $flashBag->set('type', $transaction->params()['type']);
+            $flashBag->set('date', $transaction->response()->receipt[0]->TransDate.' '.$transaction->response()->receipt[0]->TransTime);
+            $flashBag->set('responseCode', (string)$transaction->response()->receipt[0]->ResponseCode);
+            $flashBag->set('authCode', (string)$transaction->response()->receipt[0]->AuthCode);
+            $flashBag->set('isoCode', (string)$transaction->response()->receipt[0]->ISO);
+            $flashBag->set('message', (string)$transaction->response()->receipt[0]->Message);
+            $flashBag->set('ref', (string)$transaction->response()->receipt[0]->ReferenceNum);
+
+            $merchant = ConfigQuery::create()
+                ->getStoreName();
+            $merchantUrl = ConfigQuery::create()
+                ->getConfiguredShopUrl();
+
+            $flashBag->set('merchant', $merchant);
+            $flashBag->set('merchantUrl', $merchantUrl);
+
             $this->confirmPayment($orderId);
             $this->redirectToSuccessPage($orderId);
         }

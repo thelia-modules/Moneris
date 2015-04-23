@@ -21,6 +21,7 @@ class Moneris extends AbstractPaymentModule
     const DOMAIN = "moneris";
     const ROUTER = "router.moneris";
     const MONERIS_ORDER_ID = "moneris.order.id";
+    const MONERIS_ORDER_REF = "moneris.order.ref";
 
     public function postActivation(ConnectionInterface $con = null)
     {
@@ -51,8 +52,12 @@ class Moneris extends AbstractPaymentModule
      */
     public function pay(Order $order)
     {
+
         if ($this->isValidPayment()) {
+
             $this->getRequest()->getSession()->set(self::MONERIS_ORDER_ID, $order->getId());
+            $this->getRequest()->getSession()->set(self::MONERIS_ORDER_REF, $order->getRef());
+
             return $this->generateGatewayFormResponse($order, '', []);
         }
     }
