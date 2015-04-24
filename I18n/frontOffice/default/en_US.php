@@ -2,6 +2,9 @@
 return array(
     // Form
     'Bank card number' => 'Bank card number',
+    'Expiry' => 'Expiry',
+    'year' => 'year',
+    'month' => 'month',
     'Expiry month' => 'Expiry month',
     'Expiry year' => 'Expiry year',
     'Expiry date' => 'Expiry date',

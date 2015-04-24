@@ -35,6 +35,7 @@ class MonerisConfigController extends BaseAdminController
 
             Moneris::setConfigValue(MonerisConfigValue::STORE_ID, is_bool($data["store_id"]) ? (int) ($data["store_id"]) : $data["store_id"]);
             Moneris::setConfigValue(MonerisConfigValue::API_TOKEN, is_bool($data["api_token"]) ? (int) ($data["api_token"]) : $data["api_token"]);
+            Moneris::setConfigValue(MonerisConfigValue::ENVIRONMENT, is_bool($data["environment"]) ? (int) ($data["environment"]) : $data["environment"]);
         } catch (FormValidationException $ex) {
             // Invalid data entered
             $errorMessage = $this->createStandardFormValidationErrorMessage($ex);

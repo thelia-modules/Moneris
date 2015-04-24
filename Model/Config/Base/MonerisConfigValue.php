@@ -20,5 +20,6 @@ class MonerisConfigValue
 {
     const STORE_ID = "store_id";
     const API_TOKEN = "api_token";
+    const ENVIRONMENT = "environment";
 }
 

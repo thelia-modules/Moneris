@@ -59,12 +59,13 @@ class MonerisController extends BasePaymentModuleController {
         // Get module config information
         $storeId = Moneris::getConfigValue('store_id');
         $apiToken = Moneris::getConfigValue('api_token');
+        $environment = Moneris::getConfigValue('environment');
 
         // Set transaction configuration
         $config = array(
             'api_key' => $apiToken,
             'store_id' => $storeId,
-            'environment' => MonerisApi::ENV_LIVE,
+            'environment' => $environment,
             'require_cvd' => true,
             'cvd_codes' => array('M', 'Y', 'P', 'S', 'U')
         );

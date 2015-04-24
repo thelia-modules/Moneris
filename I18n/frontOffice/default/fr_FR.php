@@ -2,6 +2,9 @@
 return array(
     // Form
     'Bank card number' => 'N° de carte bancaire',
+    'Expiry' => 'Expiration',
+    'year' => 'année',
+    'month' => 'month',
     'Expiry month' => "Mois d'expiration",
     'Expiry year' => "Année d'expiration",
     'Expiry date' => "Date d'expiration",

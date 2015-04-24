@@ -12,33 +12,31 @@
         {/form_field}
 
         {assign var="thisYear" value=$smarty.now|date_format:"%y"}
-        {assign var="lastYear" value=$thisYear+50}
+        {assign var="lastYear" value=$thisYear+5}
 
-        {form_field form=$form field="expiryYear"}
         <div class="form-group">
-            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <label class="col-sm-2 control-label">{intl l="Expiry" d="moneris.fo.default"} : {intl l="year" d="moneris.fo.default"}</label>
             <div class="col-sm-1">
+                {form_field form=$form field="expiryYear"}
                 <select name="{$name}" class="form-control" {$attr}>
                     {for $year=$thisYear to $lastYear}
                         <option value="{'%02d'|sprintf:$year}">{'%02d'|sprintf:$year}</option>
                     {/for}
                 </select>
+                {/form_field}
             </div>
-        </div>
-        {/form_field}
 
-        {form_field form=$form field="expiryMonth"}
-        <div class="form-group">
-            <label class="col-sm-2 control-label">{intl l=$label}</label>
+            <label class="col-sm-1 control-label">{intl l="month" d="moneris.fo.default"}</label>
             <div class="col-sm-1">
+                {form_field form=$form field="expiryMonth"}
                 <select name="{$name}" class="form-control" {$attr}>
                     {for $month=01 to 12}
                     <option value="{'%02d'|sprintf:$month}">{'%02d'|sprintf:$month}</option>
                     {/for}
                 </select>
+                {/form_field}
             </div>
         </div>
-        {/form_field}
 
         {form_field form=$form field="cvdValue"}
         <div class="form-group">

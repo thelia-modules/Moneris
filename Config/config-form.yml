@@ -1,3 +1,4 @@
 config:
   store_id: text
   api_token: text
+  environment: text

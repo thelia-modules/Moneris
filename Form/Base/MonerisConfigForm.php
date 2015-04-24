@@ -47,6 +47,7 @@ class MonerisConfigForm extends BaseForm
 
         $this->addStoreIdField($translationKeys, $fieldsIdKeys);
         $this->addApiTokenField($translationKeys, $fieldsIdKeys);
+        $this->addEnvironmentField($translationKeys, $fieldsIdKeys);
     }
 
     protected function addStoreIdField(array $translationKeys, array $fieldsIdKeys)
@@ -85,6 +86,24 @@ class MonerisConfigForm extends BaseForm
         ;
     }
 
+    protected function addEnvironmentField(array $translationKeys, array $fieldsIdKeys)
+    {
+        $this->formBuilder
+            ->add("environment", "text", array(
+                "label" => $this->readKey("environment", $translationKeys),
+                "label_attr" => [
+                    "for" => $this->readKey("environment", $fieldsIdKeys),
+                    "help" => $this->readKey("help.environment", $translationKeys)
+                ],
+                "required" => true,
+                "constraints" => array(
+                    new NotBlank(),
+                ),
+                "data" => Moneris::getConfigValue(MonerisConfigValue::ENVIRONMENT),
+            ))
+        ;
+    }
+
     public function getName()
     {
         return static::FORM_NAME;
@@ -109,6 +128,7 @@ class MonerisConfigForm extends BaseForm
         return array(
             "store_id" => "store_id",
             "api_token" => "api_token",
+            "environment" => "environment",
         );
     }
 }

@@ -20,6 +20,7 @@ class MonerisConfigForm extends BaseMonerisConfigForm
         return array(
             "store_id" => $this->translator->trans("Store id", [], Moneris::DOMAIN),
             "api_token" => $this->translator->trans("Api token", [], Moneris::DOMAIN),
+            "environment" => $this->translator->trans("Environment", [], Moneris::DOMAIN)
         );
     }
 }

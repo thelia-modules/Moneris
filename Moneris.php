@@ -6,6 +6,7 @@
 
 namespace Moneris;
 
+use Moneris\Resource\MonerisApi;
 use Thelia\Model\Order;
 use Thelia\Module\AbstractPaymentModule;
 use Propel\Runtime\Connection\ConnectionInterface;
@@ -72,6 +73,9 @@ class Moneris extends AbstractPaymentModule
      */
     public function isValidPayment()
     {
+        if($this->getConfigValue('environment') == MonerisApi::ENV_TESTING && !$this->isDevEnvironment()) {
+            return false;
+        }
         return ($this->isDevEnvironment() || $this->isSslEnabled());
     }
 
