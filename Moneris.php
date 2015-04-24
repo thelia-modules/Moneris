@@ -52,7 +52,6 @@ class Moneris extends AbstractPaymentModule
      */
     public function pay(Order $order)
     {
-
         if ($this->isValidPayment()) {
 
             $this->getRequest()->getSession()->set(self::MONERIS_ORDER_ID, $order->getId());
