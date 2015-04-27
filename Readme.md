@@ -31,6 +31,11 @@ In the backoffice plugin configuration
 - set 'API token' to 'yesguy'
 - set 'Store ID' to 'store5'
 - select API sandbox environment
+In the frontoffice
+- use the index_dev.php instead of index.php in your URL
+- make an order with Moneris using 4242424242424242 as card number
 At Moneris test environment (https://esqa.moneris.com/mpg/)
 - connect to Moneris test store at  and use provided credentials (use 'store5' as Store ID)
 - retrieve your test in the 'REPORTS' tab -> 'transactions' subtab
+
+Note : your transaction won't be approved in all cases as Moneris uses the penny value of the transaction amount to send different responses (approved, declined, etc.). For more information about penny values responses, please refer to Moneris developer guidelines at https://developer.moneris.com/

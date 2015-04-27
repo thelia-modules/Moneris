@@ -3,8 +3,9 @@ return array(
     'Your store ID' => 'Your store ID',
     'You API token', 'You API token',
     'Environment' => 'Environment',
-    'Use live API server' => 'Use live API server',
-    'Use API sandbox server' => 'Use API sandbox server',
+    'Select an environment' => 'Select an environment',
+    'Use Moneris API live server' => 'Use Moneris API live server',
+    'Use Moneris API sandbox server' => 'Use Moneris API sandbox server',
 
 
 );

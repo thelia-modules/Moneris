@@ -27,7 +27,7 @@ if (! function_exists('curl_init')) {
 class MonerisApi
 {
 	const ENV_LIVE = 'live'; // use the live API server
-	const ENV_STAGING = 'staging'; // use the API sandbox
+	const ENV_STAGING = 'staging'; // use the API sandbox - see Moneris documentation for more information
 	const ENV_TESTING = 'testing'; // use the mock API
 
 	/**
