@@ -18,7 +18,7 @@ use Moneris\Resource\MonerisApiClasses\MonerisException;
 use Moneris\Resource\MonerisApiClasses\MonerisGateway;
 
 if (! function_exists('curl_init')) {
-  throw new MonerisException('The Moneris API requires the CURL extension.');
+    throw new MonerisException('The Moneris API requires the CURL extension.');
 }
 
 /**
@@ -26,49 +26,59 @@ if (! function_exists('curl_init')) {
  */
 class MonerisApi
 {
-	const ENV_LIVE = 'live'; // use the live API server
-	const ENV_STAGING = 'staging'; // use the API sandbox - see Moneris documentation for more information
-	const ENV_TESTING = 'testing'; // use the mock API
+    const ENV_LIVE = 'live'; // use the live API server
+    const ENV_STAGING = 'staging'; // use the API sandbox - see Moneris documentation for more information
+    const ENV_TESTING = 'testing'; // use the mock API
 
-	/**
-	 * Start using the API, ya dingus!
-	 *
-	 * @param array $params Associative array
-	 * 		Required keys:
-	 * 			- api_key string
-	 * 			- store_id string
-	 * 		Optional keys:
-	 * 			- environment string
-	 * 			- require_cvd bool
-	 * 			- require_avs bool
-	 * 			- avs_codes array
-	 * @return MonerisGateway
+    /**
+     * Start using the API, ya dingus!
+     *
+     * @param array $params Associative array
+     * 		Required keys:
+     * 			- api_key string
+     * 			- store_id string
+     * 		Optional keys:
+     * 			- environment string
+     * 			- require_cvd bool
+     * 			- require_avs bool
+     * 			- avs_codes array
+     * @return MonerisGateway
      * @throws MonerisException
-	 */
-	static public function create(array $params)
-	{
-		if (! isset($params['api_key'])) throw new MonerisException("'api_key' is required.");
-		if (! isset($params['store_id'])) throw new MonerisException("'store_id' is required.");
+     */
+    public static function create(array $params)
+    {
+        if (! isset($params['api_key'])) {
+            throw new MonerisException("'api_key' is required.");
+        }
+        if (! isset($params['store_id'])) {
+            throw new MonerisException("'store_id' is required.");
+        }
 
-		$params['environment'] = isset($params['environment']) ? $params['environment'] : self::ENV_LIVE;
+        $params['environment'] = isset($params['environment']) ? $params['environment'] : self::ENV_LIVE;
 
-		$gateway = new MonerisGateway($params['api_key'], $params['store_id'], $params['environment']);
+        $gateway = new MonerisGateway($params['api_key'], $params['store_id'], $params['environment']);
 
-		if (isset($params['require_cvd']))
-			$gateway->require_cvd((bool) $params['require_cvd']);
+        if (isset($params['require_cvd'])) {
+            $gateway->require_cvd((bool) $params['require_cvd']);
+        }
 
-		if (isset($params['cvd_codes']))
-			$gateway->successful_cvd_codes($params['cvd_codes']);
+        if (isset($params['cvd_codes'])) {
+            $gateway->successful_cvd_codes($params['cvd_codes']);
+        }
 
-		if (isset($params['require_avs']))
-			$gateway->require_avs((bool) $params['require_avs']);
+        if (isset($params['require_avs'])) {
+            $gateway->require_avs((bool) $params['require_avs']);
+        }
 
-		if (isset($params['avs_codes']))
-			$gateway->successful_avs_codes($params['avs_codes']);
+        if (isset($params['avs_codes'])) {
+            $gateway->successful_avs_codes($params['avs_codes']);
+        }
 
-		return $gateway;
-	}
+        return $gateway;
+    }
 
-	// don't allow instantiation
-	protected function __construct(){ }
+    // don't allow instantiation
+    protected function __construct()
+    {
+    }
 }

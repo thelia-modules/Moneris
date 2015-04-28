@@ -4,7 +4,6 @@ namespace Moneris\Model;
 
 use Moneris\Model\Base\MonerisErrorsQuery as BaseMonerisErrorsQuery;
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'moneris_errors' table.
  *
@@ -17,5 +16,4 @@ use Moneris\Model\Base\MonerisErrorsQuery as BaseMonerisErrorsQuery;
  */
 class MonerisErrorsQuery extends BaseMonerisErrorsQuery
 {
-
 } // MonerisErrorsQuery

@@ -9,6 +9,6 @@ return array(
     'Use Moneris API sandbox server' => 'Utiliser le serveur bac à sable de Moneris',
 
     // Order failure
-    'Moneris failed payments information' => 'Moneris failed payments information',
+    'Moneris failed payments information' => 'Informations sur les paiements refusés Moneris',
     'Error message' => "Message d'erreur"
 );

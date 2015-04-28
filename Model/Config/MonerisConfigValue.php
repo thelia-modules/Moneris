@@ -21,4 +21,3 @@ use Moneris\Model\Config\Base\MonerisConfigValue as BaseMonerisConfigValue;
 class MonerisConfigValue extends BaseMonerisConfigValue
 {
 }
-

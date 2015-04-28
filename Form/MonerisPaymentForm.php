@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints;
  * @package Moneris\Form
  * @author Etienne PERRIERE <eperriere@openstudio.fr> - OpenStudio
  */
-class MonerisPaymentForm extends BaseForm {
+class MonerisPaymentForm extends BaseForm
+{
 
     public function getName()
     {

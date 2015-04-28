@@ -200,7 +200,6 @@ abstract class MonerisErrorsQuery extends ModelCriteria
      */
     public function filterByPrimaryKey($key)
     {
-
         return $this->addUsingAlias(MonerisErrorsTableMap::ID, $key, Criteria::EQUAL);
     }
 
@@ -213,7 +212,6 @@ abstract class MonerisErrorsQuery extends ModelCriteria
      */
     public function filterByPrimaryKeys($keys)
     {
-
         return $this->addUsingAlias(MonerisErrorsTableMap::ID, $keys, Criteria::IN);
     }
 
@@ -389,16 +387,16 @@ abstract class MonerisErrorsQuery extends ModelCriteria
      */
      public function delete(ConnectionInterface $con = null)
      {
-        if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(MonerisErrorsTableMap::DATABASE_NAME);
-        }
+         if (null === $con) {
+             $con = Propel::getServiceContainer()->getWriteConnection(MonerisErrorsTableMap::DATABASE_NAME);
+         }
 
-        $criteria = $this;
+         $criteria = $this;
 
         // Set the correct dbName
         $criteria->setDbName(MonerisErrorsTableMap::DATABASE_NAME);
 
-        $affectedRows = 0; // initialize var to track total num of affected rows
+         $affectedRows = 0; // initialize var to track total num of affected rows
 
         try {
             // use transaction because $criteria could contain info
@@ -406,7 +404,7 @@ abstract class MonerisErrorsQuery extends ModelCriteria
             $con->beginTransaction();
 
 
-        MonerisErrorsTableMap::removeInstanceFromPool($criteria);
+            MonerisErrorsTableMap::removeInstanceFromPool($criteria);
 
             $affectedRows += ModelCriteria::delete($con);
             MonerisErrorsTableMap::clearRelatedInstancePool();
@@ -417,6 +415,5 @@ abstract class MonerisErrorsQuery extends ModelCriteria
             $con->rollBack();
             throw $e;
         }
-    }
-
+     }
 } // MonerisErrorsQuery

@@ -14,7 +14,6 @@ use Propel\Runtime\Map\RelationMap;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Map\TableMapTrait;
 
-
 /**
  * This class defines the structure of the 'moneris_errors' table.
  *
@@ -96,7 +95,7 @@ class MonerisErrorsTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
-    protected static $fieldNames = array (
+    protected static $fieldNames = array(
         self::TYPE_PHPNAME       => array('Id', 'OrderId', 'Message', ),
         self::TYPE_STUDLYPHPNAME => array('id', 'orderId', 'message', ),
         self::TYPE_COLNAME       => array(MonerisErrorsTableMap::ID, MonerisErrorsTableMap::ORDER_ID, MonerisErrorsTableMap::MESSAGE, ),
@@ -111,7 +110,7 @@ class MonerisErrorsTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
-    protected static $fieldKeys = array (
+    protected static $fieldKeys = array(
         self::TYPE_PHPNAME       => array('Id' => 0, 'OrderId' => 1, 'Message' => 2, ),
         self::TYPE_STUDLYPHPNAME => array('id' => 0, 'orderId' => 1, 'message' => 2, ),
         self::TYPE_COLNAME       => array(MonerisErrorsTableMap::ID => 0, MonerisErrorsTableMap::ORDER_ID => 1, MonerisErrorsTableMap::MESSAGE => 2, ),
@@ -183,8 +182,7 @@ class MonerisErrorsTableMap extends TableMap
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-
-            return (int) $row[
+        return (int) $row[
                             $indexType == TableMap::TYPE_NUM
                             ? 0 + $offset
                             : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
@@ -313,10 +311,10 @@ class MonerisErrorsTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getServiceContainer()->getDatabaseMap(MonerisErrorsTableMap::DATABASE_NAME);
-      if (!$dbMap->hasTable(MonerisErrorsTableMap::TABLE_NAME)) {
-        $dbMap->addTableObject(new MonerisErrorsTableMap());
-      }
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(MonerisErrorsTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(MonerisErrorsTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new MonerisErrorsTableMap());
+        }
     }
 
     /**
@@ -332,31 +330,33 @@ class MonerisErrorsTableMap extends TableMap
      */
      public static function doDelete($values, ConnectionInterface $con = null)
      {
-        if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(MonerisErrorsTableMap::DATABASE_NAME);
-        }
+         if (null === $con) {
+             $con = Propel::getServiceContainer()->getWriteConnection(MonerisErrorsTableMap::DATABASE_NAME);
+         }
 
-        if ($values instanceof Criteria) {
-            // rename for clarity
+         if ($values instanceof Criteria) {
+             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Moneris\Model\MonerisErrors) { // it's a model object
+         } elseif ($values instanceof \Moneris\Model\MonerisErrors) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
-        } else { // it's a primary key, or an array of pks
+         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(MonerisErrorsTableMap::DATABASE_NAME);
-            $criteria->add(MonerisErrorsTableMap::ID, (array) $values, Criteria::IN);
-        }
+             $criteria->add(MonerisErrorsTableMap::ID, (array) $values, Criteria::IN);
+         }
 
-        $query = MonerisErrorsQuery::create()->mergeWith($criteria);
+         $query = MonerisErrorsQuery::create()->mergeWith($criteria);
 
-        if ($values instanceof Criteria) { MonerisErrorsTableMap::clearInstancePool();
-        } elseif (!is_object($values)) { // it's a primary key, or an array of pks
-            foreach ((array) $values as $singleval) { MonerisErrorsTableMap::removeInstanceFromPool($singleval);
+         if ($values instanceof Criteria) {
+             MonerisErrorsTableMap::clearInstancePool();
+         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
+            foreach ((array) $values as $singleval) {
+                MonerisErrorsTableMap::removeInstanceFromPool($singleval);
             }
-        }
+         }
 
-        return $query->delete($con);
-    }
+         return $query->delete($con);
+     }
 
     /**
      * Deletes all rows from the moneris_errors table.
@@ -390,7 +390,7 @@ class MonerisErrorsTableMap extends TableMap
             $criteria = $criteria->buildCriteria(); // build Criteria from MonerisErrors object
         }
 
-        if ($criteria->containsKey(MonerisErrorsTableMap::ID) && $criteria->keyContainsValue(MonerisErrorsTableMap::ID) ) {
+        if ($criteria->containsKey(MonerisErrorsTableMap::ID) && $criteria->keyContainsValue(MonerisErrorsTableMap::ID)) {
             throw new PropelException('Cannot insert a value for auto-increment primary key ('.MonerisErrorsTableMap::ID.')');
         }
 
@@ -411,7 +411,6 @@ class MonerisErrorsTableMap extends TableMap
 
         return $pk;
     }
-
 } // MonerisErrorsTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //

@@ -4,4 +4,6 @@ namespace Moneris\Resource\MonerisApiClasses;
 
 use Exception;
 
-class MonerisException extends Exception {}
+class MonerisException extends Exception
+{
+}

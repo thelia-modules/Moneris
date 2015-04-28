@@ -21,15 +21,18 @@ use Thelia\Core\Hook\BaseHook;
  * @package Moneris\Hook
  * @author Etienne PERRIERE <eperriere@openstudio.fr> - OpenStudio
  */
-class MonerisHook extends BaseHook {
+class MonerisHook extends BaseHook
+{
 
-    public function onOrderPaymentGatewayBody(HookRenderEvent $event){
+    public function onOrderPaymentGatewayBody(HookRenderEvent $event)
+    {
         $event->add(
             $this->render('card-form.html')
         );
     }
 
-    public function onOrderPlacedBody(HookRenderEvent $event){
+    public function onOrderPlacedBody(HookRenderEvent $event)
+    {
         $event->add(
             $this->render('moneris-receipt.html')
         );

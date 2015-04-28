@@ -53,7 +53,6 @@ class Moneris extends AbstractPaymentModule
     public function pay(Order $order)
     {
         if ($this->isValidPayment()) {
-
             $this->getRequest()->getSession()->set(self::MONERIS_ORDER_ID, $order->getId());
             $this->getRequest()->getSession()->set(self::MONERIS_ORDER_REF, $order->getRef());
 
@@ -72,7 +71,7 @@ class Moneris extends AbstractPaymentModule
      */
     public function isValidPayment()
     {
-        if($this->getConfigValue('environment') == MonerisApi::ENV_TESTING && !$this->isDevEnvironment()) {
+        if ($this->getConfigValue('environment') == MonerisApi::ENV_TESTING && !$this->isDevEnvironment()) {
             return false;
         }
         return ($this->isDevEnvironment() || $this->isSslEnabled());

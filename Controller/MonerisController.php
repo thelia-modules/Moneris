@@ -19,7 +19,8 @@ use Thelia\Module\BasePaymentModuleController;
  * @package Moneris\Controller
  * @author Etienne PERRIERE <eperriere@openstudio.fr> - OpenStudio
  */
-class MonerisController extends BasePaymentModuleController {
+class MonerisController extends BasePaymentModuleController
+{
 
     /**
      * @throws \Exception
@@ -40,7 +41,6 @@ class MonerisController extends BasePaymentModuleController {
             // Proceed payment
             $transactionOptions = $this->getTransactionOptions($data, $session);
             $this->processTransaction($transactionOptions, $session);
-
         } catch (FormValidationException $e) {
             $errorMessage = $e->getMessage();
         } catch (RedirectException $e) {
@@ -105,8 +105,7 @@ class MonerisController extends BasePaymentModuleController {
         $orderId = $session->get(Moneris::MONERIS_ORDER_ID, false);
 
         // Check transaction state
-        if ($purchaseResult->was_successful() && ( $purchaseResult->failed_avs() || $purchaseResult->failed_cvd() ))
-        {
+        if ($purchaseResult->was_successful() && ($purchaseResult->failed_avs() || $purchaseResult->failed_cvd())) {
             // Get & save errors
             $errors = $purchaseResult->error_message();
 
@@ -118,9 +117,7 @@ class MonerisController extends BasePaymentModuleController {
 
             $moneris->void($purchaseResult->transaction());
             $this->redirectToFailurePage($orderId, $this->getTranslator()->trans('Payment failed.', [], Moneris::MESSAGE_DOMAIN.'.fo.default'));
-        }
-        else if (! $purchaseResult->was_successful())
-        {
+        } elseif (! $purchaseResult->was_successful()) {
             // Get & save errors
             $errors = $purchaseResult->error_message();
 
@@ -131,9 +128,7 @@ class MonerisController extends BasePaymentModuleController {
                 ->save();
 
             $this->redirectToFailurePage($orderId, $this->getTranslator()->trans('Payment failed.', [], Moneris::MESSAGE_DOMAIN.'.fo.default'));
-        }
-        else
-        {
+        } else {
             // Everything is OK ! Get transaction details to be displayed
 
             $transaction = $purchaseResult->transaction();

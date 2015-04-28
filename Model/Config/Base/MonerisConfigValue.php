@@ -22,4 +22,3 @@ class MonerisConfigValue
     const API_TOKEN = "api_token";
     const ENVIRONMENT = "environment";
 }
-
