@@ -29,7 +29,7 @@ class MonerisPaymentForm extends BaseForm {
                     new Constraints\NotBlank(),
                     new Constraints\Regex('/^\d{13,20}$/')
                 ),
-                "label" => $this->translator->trans('Bank card number', [], Moneris::DOMAIN.'.fo.default')
+                "label" => $this->translator->trans('Bank card number', [], Moneris::MESSAGE_DOMAIN.'.fo.default')
             )
         )
         ->add(
@@ -40,7 +40,7 @@ class MonerisPaymentForm extends BaseForm {
                     new Constraints\NotBlank(),
                     new Constraints\Regex('/^(\d{2})$/')
                 ),
-                "label" => $this->translator->trans('Expiry year', [], Moneris::DOMAIN.'.fo.default')
+                "label" => $this->translator->trans('Year', [], Moneris::MESSAGE_DOMAIN.'.fo.default')
             )
         )
         ->add(
@@ -51,7 +51,7 @@ class MonerisPaymentForm extends BaseForm {
                     new Constraints\NotBlank(),
                     new Constraints\Regex('/^(0[1-9]|1[0-2])$/')
                 ),
-                "label" => $this->translator->trans('Expiry month', [], Moneris::DOMAIN.'.fo.default')
+                "label" => $this->translator->trans('Month', [], Moneris::MESSAGE_DOMAIN.'.fo.default')
             )
         )
         ->add(
@@ -62,7 +62,7 @@ class MonerisPaymentForm extends BaseForm {
                     new Constraints\NotBlank(),
                     new Constraints\Regex('/^(\d{3,4})$/')
                 ),
-                "label" => $this->translator->trans('Card verification code', [], Moneris::DOMAIN.'.fo.default')
+                "label" => $this->translator->trans('Card Verification Value', [], Moneris::MESSAGE_DOMAIN.'.fo.default')
             )
         );
     }

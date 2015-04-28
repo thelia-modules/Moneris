@@ -7,19 +7,18 @@
 namespace Moneris;
 
 use Moneris\Resource\MonerisApi;
-use Thelia\Model\Order;
-use Thelia\Module\AbstractPaymentModule;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Install\Database;
+use Thelia\Model\Order;
+use Thelia\Module\AbstractPaymentModule;
 
 /**
  * Class Moneris
  * @package Moneris
- * @author Etienne PERRIERE <eperriere@openstudio.fr> - OpenStudio
  */
 class Moneris extends AbstractPaymentModule
 {
-    const DOMAIN = "moneris";
+    const MESSAGE_DOMAIN = "moneris";
     const ROUTER = "router.moneris";
     const MONERIS_ORDER_ID = "moneris.order.id";
     const MONERIS_ORDER_REF = "moneris.order.ref";
@@ -34,7 +33,7 @@ class Moneris extends AbstractPaymentModule
         $moduleModel = $this->getModuleModel();
 
         if (! $moduleModel->isModuleImageDeployed($con)) {
-            $this->deployImageFolder($moduleModel, sprintf('%s\Resource\image', __DIR__), $con);
+            $this->deployImageFolder($moduleModel, sprintf('%s'.DS.'Resource'.DS.'image', __DIR__), $con);
         }
     }
 

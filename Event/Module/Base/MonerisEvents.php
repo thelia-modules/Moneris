@@ -13,4 +13,7 @@ namespace Moneris\Event\Module\Base;
  */
 class MonerisEvents
 {
+    const MONERIS_ERRORS_CREATE = "action.moneris_errors.create";
+    const MONERIS_ERRORS_UPDATE = "action.moneris_errors.update";
+    const MONERIS_ERRORS_DELETE = "action.moneris_errors.delete";
 }

@@ -1,23 +1,24 @@
 <?php
 return array(
     // Form
+    'Credit card information' => 'Credit card information',
     'Bank card number' => 'Bank card number',
-    'Expiry' => 'Expiry',
-    'year' => 'year',
-    'month' => 'month',
-    'Expiry month' => 'Expiry month',
-    'Expiry year' => 'Expiry year',
     'Expiry date' => 'Expiry date',
-    'Card verification code' => 'Card verification code',
+    'Year' => 'Year',
+    'Month' => 'Month',
+    'Card Verification Value' => 'Card Verification Value',
 
     // Confirmation
     'Transaction type' => 'Transaction type',
     'purchase' => 'purchase',
     'Response / ISO Code' => 'Response / ISO Code',
     'Authentication code' => 'Authentication code',
-    'Transaction message' => 'Transaction message',
-    'Transaction reference' => 'Transaction reference',
+    'Message' => 'Message',
+    'Approved' => 'Approved',
+    'Reference' => 'Reference',
     'Seller' => 'Seller',
-    'Seller website' => 'Seller website'
+    'Seller website' => 'Seller website',
 
+    // Error
+    'Payment failed.' => 'Payment failed.'
 );

@@ -12,7 +12,7 @@ Moneris provides a way to link your website with your Moneris merchant account a
 ## Usage
 
 Once activated, click the plugin's Configure button, then enter your Moneris merchant account information.
-Feel free to modify the Moneris/templates/frontOffice/default/card-form.html or moneris-receipt.html to display information as you want.
+If you want to custom the integration, you can see how to do that in the [documentation](http://doc.thelia.net/en/documentation/modules/hooks/hook_create.html#use-smarty-template-in-hooks)
 
 ## Hook
 
@@ -24,8 +24,6 @@ This plugin's hooks display information on two front office places :
 
 If you need to implement Address Verification Service (AVS), refer both IronKeith's Moneris API improvement at https://github.com/ironkeith/moneris-eselectplus-api and Moneris developer guidelines at https://developer.moneris.com/
 
-### Testing the solution
-
 To test if the plugin can communicate with Moneris servers :
 In the backoffice plugin configuration
 - set 'API token' to 'yesguy'
@@ -33,7 +31,7 @@ In the backoffice plugin configuration
 - select API sandbox environment
 In the frontoffice
 - use the index_dev.php instead of index.php in your URL
-- make an order with Moneris using 4242424242424242 as card number
+- make an order with Moneris using 4761739012345678 as card number
 At Moneris test environment (https://esqa.moneris.com/mpg/)
 - connect to Moneris test store at  and use provided credentials (use 'store5' as Store ID)
 - retrieve your test in the 'REPORTS' tab -> 'transactions' subtab

@@ -41,7 +41,7 @@ class MonerisConfigController extends BaseAdminController
             $errorMessage = $this->createStandardFormValidationErrorMessage($ex);
         } catch (\Exception $ex) {
             // Any other error
-            $errorMessage = $this->getTranslator()->trans('Sorry, an error occurred: %err', ['%err' => $ex->getMessage()], [], Moneris::DOMAIN);
+            $errorMessage = $this->getTranslator()->trans('Sorry, an error occurred: %err', ['%err' => $ex->getMessage()], [], Moneris::MESSAGE_DOMAIN);
         }
 
         if (null !== $errorMessage) {

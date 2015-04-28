@@ -2,10 +2,13 @@
 
 namespace Moneris\Controller;
 
+use Moneris\Model\MonerisErrors;
 use Moneris\Moneris;
 use Moneris\Form\MonerisPaymentForm;
 use Moneris\Resource\MonerisApi;
+use Thelia\Core\HttpFoundation\Session\Session;
 use Thelia\Core\HttpKernel\Exception\RedirectException;
+use Thelia\Core\Translation\Translator;
 use Thelia\Form\Exception\FormValidationException;
 use Thelia\Model\ConfigQuery;
 use Thelia\Model\OrderQuery;
@@ -54,7 +57,7 @@ class MonerisController extends BasePaymentModuleController {
      * @param $session
      * @return array
      */
-    public function getTransactionOptions($data, $session)
+    public function getTransactionOptions($data, Session $session)
     {
         // Get module config information
         $storeId = Moneris::getConfigValue('store_id');
@@ -104,14 +107,30 @@ class MonerisController extends BasePaymentModuleController {
         // Check transaction state
         if ($purchaseResult->was_successful() && ( $purchaseResult->failed_avs() || $purchaseResult->failed_cvd() ))
         {
+            // Get & save errors
             $errors = $purchaseResult->error_message();
+
+            $monerisErrors = new MonerisErrors();
+            $monerisErrors
+                ->setOrderId($orderId)
+                ->setMessage($errors)
+                ->save();
+
             $moneris->void($purchaseResult->transaction());
-            $this->redirectToFailurePage($orderId, $errors);
+            $this->redirectToFailurePage($orderId, $this->getTranslator()->trans('Payment failed.', [], Moneris::MESSAGE_DOMAIN.'.fo.default'));
         }
         else if (! $purchaseResult->was_successful())
         {
+            // Get & save errors
             $errors = $purchaseResult->error_message();
-            $this->redirectToFailurePage($orderId, $errors);
+
+            $monerisErrors = new MonerisErrors();
+            $monerisErrors
+                ->setOrderId($orderId)
+                ->setMessage($errors)
+                ->save();
+
+            $this->redirectToFailurePage($orderId, $this->getTranslator()->trans('Payment failed.', [], Moneris::MESSAGE_DOMAIN.'.fo.default'));
         }
         else
         {
@@ -129,7 +148,7 @@ class MonerisController extends BasePaymentModuleController {
             $flashBag->set('responseCode', (string)$transaction->response()->receipt[0]->ResponseCode);
             $flashBag->set('authCode', (string)$transaction->response()->receipt[0]->AuthCode);
             $flashBag->set('isoCode', (string)$transaction->response()->receipt[0]->ISO);
-            $flashBag->set('message', (string)$transaction->response()->receipt[0]->Message);
+            $flashBag->set('message', Translator::getInstance()->trans('Approved', [], Moneris::MESSAGE_DOMAIN.'.fo.default'));
             $flashBag->set('ref', (string)$transaction->response()->receipt[0]->ReferenceNum);
             $flashBag->set('merchant', $merchant);
             $flashBag->set('merchantUrl', $merchantUrl);

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="http://thelia.net/schema/dic/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://thelia.net/schema/dic/config http://thelia.net/schema/dic/config/thelia-1.0.xsd">
     <forms>
-        <form name="moneris.payment" class="Moneris\Form\MonerisPaymentForm" />
+        <form name="moneris.payment" class="Moneris\Form\MonerisPaymentForm"/>
         <form name="moneris.configuration" class="Moneris\Form\MonerisConfigForm"/>
+        <form name="moneris_errors.create" class="Moneris\Form\MonerisErrorsCreateForm"/>
+        <form name="moneris_errors.update" class="Moneris\Form\MonerisErrorsUpdateForm"/>
     </forms>
-
     <hooks>
         <hook id="moneris.hook" class="Moneris\Hook\MonerisHook" scope="request">
             <tag name="hook.event_listener" event="order-payment-gateway.body" type="front"/>
             <tag name="hook.event_listener" event="order-placed.body" type="front"/>
+            <tag name="hook.event_listener" event="order-edit.cart-bottom" method="showPaymentInfo" type="back"/>
         </hook>
     </hooks>
+    <loops>
+        <loop name="moneris-errors" class="Moneris\Loop\MonerisErrors"/>
+    </loops>
+    <services>
+        <service id="action.moneris.moneris_errors_table" class="Moneris\Action\MonerisErrorsAction">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <service id="moneris.form.type.moneris_errors_id" class="Moneris\Form\Type\MonerisErrorsIdType">
+            <argument id="thelia.translator" type="service"/>
+            <tag name="thelia.form.type"/>
+        </service>
+    </services>
 </config>
