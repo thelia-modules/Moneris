@@ -14,7 +14,7 @@ Moneris provides a way to link your website with your Moneris merchant account a
 Add it in your main Thelia composer.json file
 
 ```
-composer require thelia/moneris:~1.0
+composer require thelia/moneris-module:~1.0
 ```
 
 ## Usage
