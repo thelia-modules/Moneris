@@ -9,6 +9,14 @@ Moneris provides a way to link your website with your Moneris merchant account a
 * Copy the module into ```<thelia_root>/local/modules/``` directory and be sure that the name of the module is Moneris.
 * Activate it in your Thelia administration panel.
 
+### Composer
+
+Add it in your main Thelia composer.json file
+
+```
+composer require thelia/moneris:~1.0
+```
+
 ## Usage
 
 Once activated, click the plugin's Configure button, then enter your Moneris merchant account information.
